@@ -1,0 +1,14 @@
+# Cache do Python
+__pycache__/
+*.pyc
+
+# Cache do Streamlit
+.streamlit/
+
+# Ambientes virtuais (caso use)
+venv/
+.venv/
+
+# Opcional: Se o seu ficheiro .pkl for maior que 100MB, o GitHub vai rejeitá-lo.
+# Se for o caso, precisará de usar o Git LFS ou deixá-lo fora do Git:
+# *.pkl
