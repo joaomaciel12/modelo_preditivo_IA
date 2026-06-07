@@ -3,8 +3,9 @@ from pydantic import BaseModel
 import pickle
 import pandas as pd
 
-app = FastAPI(title="API de Detecção de Diabetes")
+app = FastAPI(title="API de Detecção de Diabetes - GlycoAI Backend")
 
+# Carrega o modelo pkl uma única vez ao iniciar a API para garantir performance
 with open('modelo_detecao_diabetes.pkl', 'rb') as arquivo:
     modelo = pickle.load(arquivo)
 
@@ -27,8 +28,7 @@ def prever_diabetes(paciente: DadosPaciente):
     dados_dict = paciente.dict()
     df_entrada = pd.DataFrame([dados_dict])
     
-    # Esta linha força a API a organizar as colunas na ordem binária idêntica à do treino
-    # evitando qualquer erro 500 estrutural
+    # Reindexação estrita baseada nas features originais de treino para evitar Erro 500
     colunas_treino = list(modelo.feature_names_in_)
     df_entrada = df_entrada.reindex(columns=colunas_treino, fill_value=0)
     
